@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const dbUri = process.env.DBURI || 'mongodb://localhost:27017/Users';
+const dbUri: string = process.env.DBURI!;
 
 if (!dbUri) {
     console.error('DBURI is not defined. Please check your .env file.');
