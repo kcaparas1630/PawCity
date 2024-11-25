@@ -1,9 +1,9 @@
+import LoginForm from './Components/Login/Login';
 
 const App = () => {
-
   return (
-    <h1>hello!</h1>
-  )
-}
+    <LoginForm />
+  );
+};
 
-export default App
+export default App;
