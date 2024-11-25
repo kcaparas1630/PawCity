@@ -11,9 +11,24 @@ const getUsers = async (req: Request, res: Response) => {
     }
 }
 
+
+const  alreadyExists = async (email: string) => {
+    const exists = await userModel.exists({email: email})
+    return exists;
+}
+
 const registerUser = async (req: Request, res: Response) => {
     try {
+        const { email } = req.body;
         let users = await userModel.create(req.body);
+
+        // checks if email already exists
+         const exists = await alreadyExists(email);
+        
+         if (exists) {
+             return res.status(403).send('User with this email already exists');
+         }
+        
         res.status(201).send(users);
     } catch (error: any) {
         res.status(400).send('Bad Request. Missing body');

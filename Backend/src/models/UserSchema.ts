@@ -16,7 +16,12 @@ const UserSchema = new Schema({
         // 1 Uppercase, 1 Lowercase, 1 Special Character, and 1 Number
         match: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};:'",.<>\?])/
     },
-    name: {
+    firstName: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    lastName: {
         type: String,
         required: true,
         trim: true
