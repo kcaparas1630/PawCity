@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import argon2 from 'argon2';
 import DogSchema from './DogSchema';
 
 const UserSchema = new Schema({
@@ -46,6 +47,18 @@ UserSchema.set('toJSON', {
     virtuals: true,
     transform: (doc, ret) => { delete ret._id; }
 });
+
+UserSchema.pre('save', async function() {
+    // hash and salt password
+    try {
+        const hash = await argon2.hash(this.password, {
+            type: argon2.argon2id
+        });
+        this.password = hash;
+    } catch (err: any) {
+        console.log('Error in hashing password' + err);
+    }
+})
 
 const User = mongoose.model('User', UserSchema, 'Users');
 
