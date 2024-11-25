@@ -31,6 +31,6 @@ app.get('/', (req: Request, res: Response) => {
     res.send('Node Server is live!!');
 })
 
-app.use('/api', [routers.userRouter]);
+app.use('/', [routers.userRouter, routers.authRouter]);
 
 export default app;

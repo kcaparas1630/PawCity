@@ -58,7 +58,17 @@ UserSchema.pre('save', async function() {
     } catch (err: any) {
         console.log('Error in hashing password' + err);
     }
-})
+});
+
+UserSchema.methods.verifyPassword = 
+    async function(plainTextPassword:string) {
+        const dbHashedPassword = this.password;
+        try {
+            return await argon2.verify(dbHashedPassword, plainTextPassword);
+        } catch (err: any) {
+            console.log('Error verifying password' + err);
+        }
+    }
 
 const User = mongoose.model('User', UserSchema, 'Users');
 
