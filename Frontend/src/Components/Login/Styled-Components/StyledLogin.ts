@@ -163,7 +163,6 @@ const FormH2 = styled.h2`
 const SocialContainer = styled.div`
   display: flex;
   gap: 24px;
-  margin-bottom: 24px;
 
   a {
     border: 1px solid #dddddd;
@@ -185,6 +184,12 @@ const LeashUpText = styled.a`
     text-decoration: none;
 `;
 
+const UseAccountText = styled.p`
+    font-size: 1rem;
+    color: #6d6875;
+    text-align: center;
+`;
+
 
 export {
   Container,
@@ -203,5 +208,6 @@ export {
   SubmitButton,
   FormH2,
   SocialContainer,
-  LeashUpText
+  LeashUpText,
+  UseAccountText
 };

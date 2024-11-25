@@ -2,7 +2,8 @@ import { FC, useState } from 'react';
 import { Formik } from 'formik';
 import validationSchema from './Schema/LoginSchema';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import axios from 'axios';
+import loginUser from '../../Services/LoginService';
 import {
   faGoogle as faGoogleBrand,
   faFacebookF as faFacebookBrand,
@@ -29,24 +30,61 @@ import {
   FormH2,
   SocialContainer,
   LeashUpText,
+  UseAccountText,
 } from './Styled-Components/StyledLogin';
 
+
 const LoginForm: FC = () => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData,] = useState<FormData>({
     email: '',
     password: '',
   });
 
-  const onSubmit = (
-    values: FormData,
-    { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void },
-  ): void => {
-    setTimeout(() => {
-      setFormData(values);
-      setSubmitting(false);
-    }, 400);
-  };
+  const [error, setError] = useState<string | null>(null);
 
+  const onSubmit = async (
+    values: FormData,
+    { setSubmitting, setErrors }: { 
+      setSubmitting: (isSubmitting: boolean) => void;
+      setErrors: (errors: {}) => void;
+    }
+  ): Promise<void> => {
+    try {
+      setError(null);
+      setSubmitting(true);
+
+      const response = await loginUser({
+        email: values.email,
+        password: values.password
+      });
+
+      console.log('Login successful', response);
+      
+      // Optional: Store token in localStorage
+      if (response.token) {
+        localStorage.setItem('token', response.token);
+      }
+
+
+    } catch (error) {
+      // Handle login error
+      if (axios.isAxiosError(error)) {
+        // Handle specific Axios error
+        const serverError = error.response?.data?.message;
+        setError(serverError || 'Login failed');
+
+        // If server returns field-specific errors
+        if (error.response?.data?.errors) {
+          setErrors(error.response.data.errors);
+        }
+      } else {
+        // Handle generic error
+        setError('An unexpected error occurred');
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  };
   return (
     <Container>
       <Logo>
@@ -80,6 +118,7 @@ const LoginForm: FC = () => {
             <FontAwesomeIcon icon={faInstagramBrand} />
           </a>
         </SocialContainer>
+        <UseAccountText>or use your account</UseAccountText>
         <Formik
           initialValues={formData}
           validationSchema={validationSchema}
@@ -112,11 +151,12 @@ const LoginForm: FC = () => {
                 )}
               </InputWrapper>
               <LeashUpText href="#">Don't have a leash yet? Leash up!</LeashUpText>
+              {error && <ErrorMessage>{error}</ErrorMessage>}
               <SubmitButton
                 type="submit"
                 disabled={isSubmitting}
               >
-                Submit
+                {isSubmitting ? 'Logging in...' : 'Submit'}
               </SubmitButton>
             </StyledForm>
           )}

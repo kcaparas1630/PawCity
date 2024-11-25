@@ -26,6 +26,6 @@ h1,h2,h3,h4,h5 {
   font-weight: 800;
 }
 
-p {
+p, a {
   font-family: 'Parkinsans', sans-serif;
 }
