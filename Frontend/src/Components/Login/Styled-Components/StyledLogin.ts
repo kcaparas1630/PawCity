@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Form } from 'formik';
 
 const Container = styled.section`
     min-height: 100vh;
@@ -33,6 +34,7 @@ const Logo = styled.div`
   }
 `;
 
+/* Banner Left Side */
 const Banner = styled.div`
   display: none;
   @media (min-width: 1024px) {
@@ -87,14 +89,100 @@ const BannerH2 = styled.h2`
 `;
 
 const DogPic = styled.img`
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    transform: translateX(-20%);
-    width: 50%;
-    height: 50%;
-    object-fit: cover;
-    z-index: 10;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-20%);
+  width: 50%;
+  height: 50%;
+  object-fit: cover;
+  z-index: 10;
+`;
+
+/* Form Right Side */
+const FormContainer = styled.div`
+  @media (min-width: 1024px) {
+    padding: 2rem;
+    width: 50vw;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
+const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 50%;
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+`;
+
+const StyledInput = styled.input<{ error: boolean | undefined | string }>`
+  padding: 0.5rem;
+  border: 1px solid ${(props) => (props.error ? 'red' : '#ccc')};
+  border-radius: 4px;
+`;
+
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+`;
+
+const SubmitButton = styled.button`
+  padding: 0.75rem;
+  background-color: #b5838d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+    &:hover {
+        background-color: #6d6875;
+    }
+`;
+
+const FormH2 = styled.h2`
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #6d6875;
+`;
+
+const SocialContainer = styled.div`
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+
+  a {
+    border: 1px solid #dddddd;
+    border-radius: 50%;
+    display: inline-flex;
+    color: #6d6875;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    height: 40px;
+    width: 40px;
+  }
+`;
+
+const LeashUpText = styled.a`
+    font-size: 1rem;
+    color: #6d6875;
+    text-align: right;
+    text-decoration: none;
 `;
 
 
@@ -107,4 +195,13 @@ export {
   BannerH2,
   Logo,
   DogPic,
+  FormContainer,
+  StyledForm,
+  StyledInput,
+  ErrorMessage,
+  InputWrapper,
+  SubmitButton,
+  FormH2,
+  SocialContainer,
+  LeashUpText
 };
