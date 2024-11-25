@@ -11,12 +11,4 @@ const getUsers = async (req: Request, res: Response) => {
     }
 }
 
-const registerUser = async (req: Request, res: Response) => {
-    try {
-        let users = await userModel.create(req.body);
-        res.status(201).send(users);
-    } catch (error: any) {
-        res.status(400).send('Bad Request. Missing body');
-    }
-}
-export { getUsers, registerUser };
+export default getUsers;

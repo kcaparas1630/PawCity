@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import argon2 from 'argon2';
 import DogSchema from './DogSchema';
 
 const UserSchema = new Schema({
@@ -16,7 +17,12 @@ const UserSchema = new Schema({
         // 1 Uppercase, 1 Lowercase, 1 Special Character, and 1 Number
         match: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};:'",.<>\?])/
     },
-    name: {
+    firstName: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    lastName: {
         type: String,
         required: true,
         trim: true
@@ -41,6 +47,28 @@ UserSchema.set('toJSON', {
     virtuals: true,
     transform: (doc, ret) => { delete ret._id; }
 });
+
+UserSchema.pre('save', async function() {
+    // hash and salt password
+    try {
+        const hash = await argon2.hash(this.password, {
+            type: argon2.argon2id
+        });
+        this.password = hash;
+    } catch (err: any) {
+        console.log('Error in hashing password' + err);
+    }
+});
+
+UserSchema.methods.verifyPassword = 
+    async function(plainTextPassword:string) {
+        const dbHashedPassword = this.password;
+        try {
+            return await argon2.verify(dbHashedPassword, plainTextPassword);
+        } catch (err: any) {
+            console.log('Error verifying password' + err);
+        }
+    }
 
 const User = mongoose.model('User', UserSchema, 'Users');
 
