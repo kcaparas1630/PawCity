@@ -1,0 +1,31 @@
+@font-face {
+  font-family: 'Parkinsans';
+  src: url('./Fonts/Parkinsans-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal; 
+}
+
+@font-face {
+  font-family: 'Atma';
+  src: url('./Fonts/Atma-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal; 
+}
+@font-face {
+  font-family: 'Atma-bold';
+  src: url('./Fonts/Atma-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal; 
+}
+
+body {
+  margin: 0;
+}
+h1,h2,h3,h4,h5 {
+  font-family: 'Atma-bold', sans-serif;
+  font-weight: 800;
+}
+
+p, a {
+  font-family: 'Parkinsans', sans-serif;
+}
