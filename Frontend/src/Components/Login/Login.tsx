@@ -10,7 +10,7 @@ import {
   faInstagram as faInstagramBrand
 } from '@fortawesome/free-brands-svg-icons';
 import FormData from '../../Interface/LoginForm';
-import PawCityPNG from '../../assets/PawCity.png';
+import PawCityPNG from '../../assets/PawCity-noText.png';
 import DogBanner from '../../assets/dogPawCity.png';
 import {
   Container,
@@ -46,7 +46,7 @@ const LoginForm: FC = () => {
     values: FormData,
     { setSubmitting, setErrors }: { 
       setSubmitting: (isSubmitting: boolean) => void;
-      setErrors: (errors: {}) => void;
+      setErrors: (errors: object) => void;
     }
   ): Promise<void> => {
     try {
@@ -103,6 +103,9 @@ const LoginForm: FC = () => {
         <DogPic
           src={DogBanner}
           alt="Dog Smiling"
+          initial={{ opacity: 0, x: -200 }}
+          animate={{ opacity: 1, x: -80}}
+          transition={{duration: 0.8}}
         />
       </Banner>
       <FormContainer>
