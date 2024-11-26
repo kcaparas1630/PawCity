@@ -121,7 +121,6 @@ const StyledForm = styled(Form)`
 
 const InputWrapper = styled.div`
   display: flex;
-  gap: 24px;
   flex-direction: column;
 `;
 
@@ -144,13 +143,14 @@ const SubmitButton = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-
+  transition: all 0.5s;
   &:disabled {
     background-color: #ccc;
     cursor: not-allowed;
   }
     &:hover {
         background-color: #6d6875;
+        scale: 1.05;
     }
 `;
 
@@ -177,7 +177,7 @@ const SocialContainer = styled.div`
   }
 `;
 
-const LeashUpText = styled.a`
+const LeashUpText = styled(motion.a)`
     font-size: 1rem;
     color: #333333;
     text-align: right;

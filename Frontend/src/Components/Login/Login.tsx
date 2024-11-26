@@ -4,10 +4,11 @@ import validationSchema from './Schema/LoginSchema';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import loginUser from '../../Services/LoginService';
+import { motion } from 'motion/react';
 import {
   faGoogle as faGoogleBrand,
   faFacebookF as faFacebookBrand,
-  faInstagram as faInstagramBrand
+  faInstagram as faInstagramBrand,
 } from '@fortawesome/free-brands-svg-icons';
 import FormData from '../../Interface/LoginForm';
 import PawCityPNG from '../../assets/PawCity-noText.png';
@@ -33,9 +34,8 @@ import {
   UseAccountText,
 } from './Styled-Components/StyledLogin';
 
-
 const LoginForm: FC = () => {
-  const [formData,] = useState<FormData>({
+  const [formData] = useState<FormData>({
     email: '',
     password: '',
   });
@@ -44,10 +44,13 @@ const LoginForm: FC = () => {
 
   const onSubmit = async (
     values: FormData,
-    { setSubmitting, setErrors }: { 
+    {
+      setSubmitting,
+      setErrors,
+    }: {
       setSubmitting: (isSubmitting: boolean) => void;
       setErrors: (errors: object) => void;
-    }
+    },
   ): Promise<void> => {
     try {
       setError(null);
@@ -55,17 +58,15 @@ const LoginForm: FC = () => {
 
       const response = await loginUser({
         email: values.email,
-        password: values.password
+        password: values.password,
       });
 
       console.log('Login successful', response);
-      
+
       // Optional: Store token in localStorage
       if (response.token) {
         localStorage.setItem('token', response.token);
       }
-
-
     } catch (error) {
       // Handle login error
       if (axios.isAxiosError(error)) {
@@ -104,22 +105,46 @@ const LoginForm: FC = () => {
           src={DogBanner}
           alt="Dog Smiling"
           initial={{ opacity: 0, x: -200 }}
-          animate={{ opacity: 1, x: -80}}
-          transition={{duration: 0.8}}
+          animate={{ opacity: 1, x: -80 }}
+          transition={{ duration: 0.8 }}
         />
       </Banner>
       <FormContainer>
         <FormH2>Leash In!</FormH2>
         <SocialContainer>
-          <a href="#">
+          <motion.a
+            href="#"
+            whileHover={{
+              scale: 1.05,
+              backgroundColor: '#6d6875',
+              color: '#F5F5F5',
+              borderColor: 'transparent',
+            }}
+          >
             <FontAwesomeIcon icon={faFacebookBrand} />
-          </a>
-          <a href="#">
+          </motion.a>
+          <motion.a
+            href="#"
+            whileHover={{
+              scale: 1.05,
+              backgroundColor: '#6d6875',
+              color: '#F5F5F5',
+              borderColor: 'transparent',
+            }}
+          >
             <FontAwesomeIcon icon={faGoogleBrand} />
-          </a>
-          <a href="#">
+          </motion.a>
+          <motion.a
+            href="#"
+            whileHover={{
+              scale: 1.05,
+              backgroundColor: '#6d6875',
+              color: '#F5F5F5',
+              borderColor: 'transparent',
+            }}
+          >
             <FontAwesomeIcon icon={faInstagramBrand} />
-          </a>
+          </motion.a>
         </SocialContainer>
         <UseAccountText>or use your account</UseAccountText>
         <Formik
@@ -140,6 +165,8 @@ const LoginForm: FC = () => {
                   placeholder="you@gmail.com"
                 />
                 {errors.email && touched.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+              </InputWrapper>
+              <InputWrapper>
                 <StyledInput
                   type="password"
                   name="password"
@@ -153,7 +180,12 @@ const LoginForm: FC = () => {
                   <ErrorMessage>{errors.password}</ErrorMessage>
                 )}
               </InputWrapper>
-              <LeashUpText href="#">Don't have a leash yet? Leash up!</LeashUpText>
+              <LeashUpText
+                href="#"
+                whileHover={{ color: '#E5989B' }}
+              >
+                Don't have a leash yet? Leash up!
+              </LeashUpText>
               {error && <ErrorMessage>{error}</ErrorMessage>}
               <SubmitButton
                 type="submit"
