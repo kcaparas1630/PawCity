@@ -41,6 +41,7 @@ const LoginForm: FC = () => {
   });
   const [error, setError] = useState<string | null>(null);
   const [authRoute, setAuthRoute] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   const onSubmit = async (
     values: FormData,
