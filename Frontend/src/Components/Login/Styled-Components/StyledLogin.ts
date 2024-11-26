@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Form } from 'formik';
+import { motion } from 'motion/react';
 
 const Container = styled.section`
     min-height: 100vh;
@@ -88,11 +89,10 @@ const BannerH2 = styled.h2`
   margin: 0 0 0 50px;
 `;
 
-const DogPic = styled.img`
+const DogPic = styled(motion.img)`
   position: absolute;
   bottom: 0;
   left: 0;
-  transform: translateX(-20%);
   width: 50%;
   height: 50%;
   object-fit: cover;
@@ -121,7 +121,6 @@ const StyledForm = styled(Form)`
 
 const InputWrapper = styled.div`
   display: flex;
-  gap: 24px;
   flex-direction: column;
 `;
 
@@ -144,20 +143,21 @@ const SubmitButton = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-
+  transition: all 0.5s;
   &:disabled {
     background-color: #ccc;
     cursor: not-allowed;
   }
     &:hover {
         background-color: #6d6875;
+        scale: 1.05;
     }
 `;
 
 const FormH2 = styled.h2`
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #6d6875;
+  color: #333333;
 `;
 
 const SocialContainer = styled.div`
@@ -168,7 +168,7 @@ const SocialContainer = styled.div`
     border: 1px solid #dddddd;
     border-radius: 50%;
     display: inline-flex;
-    color: #6d6875;
+    color: #333333;
     justify-content: center;
     align-items: center;
     margin: 0 5px;
@@ -177,16 +177,16 @@ const SocialContainer = styled.div`
   }
 `;
 
-const LeashUpText = styled.a`
+const LeashUpText = styled(motion.a)`
     font-size: 1rem;
-    color: #6d6875;
+    color: #333333;
     text-align: right;
     text-decoration: none;
 `;
 
 const UseAccountText = styled.p`
     font-size: 1rem;
-    color: #6d6875;
+    color: #333333;
     text-align: center;
 `;
 
