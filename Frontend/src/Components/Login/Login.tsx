@@ -39,8 +39,8 @@ const LoginForm: FC = () => {
     email: '',
     password: '',
   });
-
   const [error, setError] = useState<string | null>(null);
+  const [authRoute, setAuthRoute] = useState<string | null>(null);
 
   const onSubmit = async (
     values: FormData,
